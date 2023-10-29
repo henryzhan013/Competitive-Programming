@@ -1,0 +1,30 @@
+#include <iostream>
+
+using namespace std;
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        const int N=200000;
+        int n, a[N+5], dp[N+5], store[N+5];
+        cin>>n;
+        dp[0]=0;
+        for(int i=1;i<=n;i++){
+            store[i]=N+10;
+        }
+        for(int i=1;i<=n;i++){
+            cin>>a[i];
+            dp[i]=min(dp[i-1]+1, store[a[i]]);
+            store[a[i]]=min(store[a[i]],dp[i-1]);
+        }
+        cout<<n-dp[n]<<endl;
+    }
+    return 0;
+}
+
+/*
+ Approach problem from a different way: think about the maximum amount that
+ can be kept from 1 to i.
+ Then break it down with dynamic programming: with each new i, if we haven't seen it before, we must keep it. If we have seen it before, we can delete the segment that leaves with the shortest amount of kept elements.
+ */
