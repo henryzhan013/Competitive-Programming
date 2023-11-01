@@ -1,0 +1,41 @@
+#include <iostream>
+ 
+using namespace std;
+const int N=400000;
+ 
+int appear[N+5], cnt[N+5], a[N+5];
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        long long n,m,max=-1;
+        cin>>n>>m;
+        memset(appear, -1, sizeof(appear));
+        memset(cnt, 0, sizeof(cnt));
+        for(int i=1;i<=n;i++){
+            cin>>a[i];
+            appear[a[i]]=0;
+            if(a[i]>max) max=a[i];
+        }
+        for(int i=1;i<=m;i++){
+            int p, v;
+            cin>>p>>v;
+            if(v>max) max=v;
+            cnt[a[p]]+=i-appear[a[p]];
+            appear[a[p]]=-1;
+            appear[v]=i;
+            a[p]=v;
+        }
+        for(int i=1;i<=max;i++){
+            if(appear[i]!=-1){
+                cnt[i]+=m+1-appear[i];
+            }
+        }
+        long long ans=0;
+        for(int i=1;i<=max;i++){
+            ans+=m*(m+1)/2*1ll-(m-cnt[i])*(m-cnt[i]+1)/2*1ll;
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}
