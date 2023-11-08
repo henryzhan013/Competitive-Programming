@@ -1,0 +1,22 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+ 
+ 
+int main(){
+    int T;
+    cin>>T;
+    while(T--){
+        int N;
+        cin>>N;
+        string s;
+        cin>>s;
+        char c=s[N-1];
+        if(c=='A'){
+            cout<<'A'<<endl;
+        }else{
+            cout<<'B'<<endl;
+        }
+    }
+    return 0;
+}
