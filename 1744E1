@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+ 
+typedef long long ll;
+using namespace std;
+ 
+ll gcd(ll x,ll y){
+    if(x==0) return y;
+    return gcd(y%x, x);
+}
+
+void solve(){
+    ll a,b,c,d;
+    cin>>a>>b>>c>>d;
+    for(ll i=a+1;i<=c;i++){
+        ll need=a*b/gcd(a*b,i);
+        ll start=b-b%need;
+        for(ll j=start+need;j<=d;j+=need){
+            if(i*j%(a*b)==0){
+                cout<<i<<" "<<j<<endl;
+                return;
+            }
+        }
+    }
+    cout<<-1<<" "<<-1<<endl;
+}
+ 
+int main() {
+    ios::sync_with_stdio(false);  cin.tie(nullptr); cout.tie(nullptr);
+    ll t;
+    cin>>t;
+    while(t--){
+         solve();
+    }
+}
