@@ -1,0 +1,31 @@
+#include <iostream>
+#include <map>
+#include <set>
+ 
+using namespace std;
+typedef long long ll;
+ 
+void solve(){
+    ll n,x,p;
+    cin>>n>>x>>p;
+    for(ll i=1;i<=min(2*n,p);i++){
+        ll moves=i*(i+1)/2;
+        if(moves<n-x) continue;
+        ll y= (moves-(n-x))% n;
+        
+        if(y==0){
+            cout<<"yes\n";
+            return;
+        }
+    }
+    cout<<"no\n";
+}
+int main() {
+    ios::sync_with_stdio(false);  cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
