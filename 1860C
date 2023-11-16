@@ -1,0 +1,33 @@
+using namespace std;
+typedef long long ll;
+ 
+const int N=300000;
+ 
+void solve(){
+    int n;
+    int cnt=0, mina=N+5, minb=N+5;
+    cin>>n;
+    while(n--){
+        int a;
+        cin>>a;
+        if(a<mina){
+            mina=a;
+        }else{
+            if(a<minb){
+                minb=a;
+                cnt++;
+            }
+        }
+    }
+    cout<<cnt<<endl;
+}
+ 
+int main() {
+    ios::sync_with_stdio(false);  cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
