@@ -1,0 +1,50 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+ 
+using namespace std;
+typedef long long ll;
+const int N=150005;
+ll a[N+5];
+ 
+void solve(){
+    int n;
+    cin>>n;
+    memset(a,0,sizeof(a));
+    ll min=1000000005, mxn=-1;
+    for(int i=1;i<=n;i++) {
+        cin>>a[i];
+        if(a[i]>mxn) mxn=a[i];
+        if(a[i]<min) min=a[i];
+    }
+    ll mxn2=mxn-min;
+    for(int i=2;i<n;i++){
+        if(n%i==0){
+            ll cm=-1, cmi=1000000000000000;
+            for(int j=1;j<=n;j+=i){
+                ll cur=0;
+                for(int z=j;z<j+i;z++){
+                    cur+=a[z];
+                }
+            //    if(i==4) cout<<cur<<"    ";
+                if(cur>cm) {
+                    cm=cur;
+                }
+                if(cur<cmi) cmi=cur;
+            }
+            if(cm-cmi>mxn2) mxn2=cm-cmi;
+          //  cout<<cm<<" "<<cmi<<" ";
+        }
+    }
+    cout<<mxn2<<endl;
+}
+ 
+int main() {
+    ios::sync_with_stdio(false);  cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
