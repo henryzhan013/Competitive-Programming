@@ -1,0 +1,35 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <map>
+ 
+using namespace std;
+typedef long long ll;
+const ll N=200005;
+ 
+void solve(){
+    ll n;
+    cin>>n;
+    map<ll,ll> store;
+    
+    for(ll i=1,x=0;i<=n;i++){
+        cin>>x;
+        if(x==2) x=1;
+        store[x]++;
+    }
+    ll ans=0;
+    for(auto e: store){
+        ans+=e.second*(e.second-1)/2;
+    }
+    cout<<ans<<"\n";
+}
+ 
+int main() {
+    ios::sync_with_stdio(false);  cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
