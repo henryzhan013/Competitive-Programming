@@ -1,0 +1,54 @@
+#include <iostream>
+#include <algorithm>
+ 
+using namespace std;
+typedef long long ll;
+ 
+ 
+const ll N=200005;
+ 
+ 
+void solve(){
+    ll n;
+    string s;
+    cin>>n>>s;
+    if(n%2==1){
+        cout<<-1<<"\n";
+        return;
+    }
+    ll cnt[26];
+    ll cnt2[26];
+    ll cnt3=0;
+    memset(cnt,0,sizeof(cnt));
+    memset(cnt2,0,sizeof(cnt2));
+    for(int i=0;i<n;i++){
+        cnt[s[i]-'a']++;
+       // cout<<cnt[s[i]-'a']<<"    ";
+        if(cnt[s[i]-'a']>n/2){
+            cout<<-1<<"\n";
+            return;
+        }
+    }
+    for(int i=0;i<=n/2-1;i++){
+        if(s[i]==s[n-i-1]){
+            cnt2[s[i]-'a']++;
+            cnt3++;
+        }
+    }
+    sort(cnt2, cnt2+26, greater<int>());
+    ll a=0;
+    if(cnt2[0]>cnt3-cnt2[0]){
+        a=(cnt2[0]-(cnt3-cnt2[0]))/2;
+    }
+    cout<<(cnt3+1)/2+a<<"\n";
+}
+ 
+int main() {
+    ios::sync_with_stdio(false);  cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
