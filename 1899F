@@ -1,0 +1,37 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <map>
+ 
+using namespace std;
+typedef long long ll;
+ 
+ 
+void solve(){
+    ll n,q;
+    cin>>n>>q;
+    for(int i=1;i<n;i++){
+        cout<<i<<" "<<i+1<<"\n";
+    }
+    ll pos=2;
+    while(q--){
+        ll d;
+        cin>>d;
+        if(d==n-pos+1 || d==pos-1){
+            cout<<"-1 -1 -1\n";
+        }else{
+            cout<<"1 "<<pos<<" "<<d+1<<"\n";
+            pos=d+1;
+        }
+    }
+}
+ 
+int main() {
+    ios::sync_with_stdio(false);  cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
