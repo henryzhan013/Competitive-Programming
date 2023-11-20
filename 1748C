@@ -1,0 +1,47 @@
+#include <iostream>
+#include <map>
+ 
+typedef long long ll;
+using namespace std;
+ 
+const ll N=200005;
+ll pref[N];
+map<ll,ll> cnt;
+ 
+void solve(){
+    int n;
+    cin>>n;
+    pref[0]=0;
+    ll a,max=0,ans=0;
+    bool flag=false;
+    for(int i=1;i<=n;i++){
+        cin>>a;
+        pref[i]=a+pref[i-1];
+ 
+        if(a==0) {
+            ans+=max;
+            flag=true;
+            cnt.clear();
+            max=0;
+        }
+        if(!flag && pref[i]==0) ans++;
+        if(flag){
+            cnt[pref[i]]++;
+            if(cnt[pref[i]]>max) max=cnt[pref[i]];
+        }
+        if(i==n && flag) {
+            ans+=max;
+        }
+    }
+    cout<<ans<<endl;
+}
+ 
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
+ 
