@@ -1,0 +1,52 @@
+#include <iostream>
+#include <set>
+#include <vector>
+
+typedef long long ll;
+using namespace std;
+
+const ll N=1000000005;
+
+int n,k;
+struct nodel{
+    int l,r;
+    friend bool operator<(const nodel a, const nodel b){
+        return a.l>b.l;
+    }
+};
+
+struct noder{
+    int l,r;
+    friend bool operator<(noder a, noder b){
+        return a.r < b.r;
+    }
+};
+
+void solve(){
+    cin>>n;
+    multiset<nodel> ls;
+    multiset<noder> rs;
+    while(n--){
+        char op;
+        int l,r;
+        cin>>op>>l>>r;
+        if(op=='+'){
+            ls.insert({l,r});
+            rs.insert({l,r});
+        }else{
+            ls.erase(ls.find({l,r}));
+            rs.erase(rs.find({l,r}));
+        }
+        
+        if((*rs.begin()).r < (*ls.begin()).l){
+            puts("YES");
+        }else{
+            puts("NO");
+        }
+    }
+}
+int main(){
+    int t=1;
+    while(t--) solve();
+    return 0;
+}
