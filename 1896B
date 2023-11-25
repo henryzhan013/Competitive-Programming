@@ -1,0 +1,49 @@
+#include <cstring>
+#include <iostream>
+#include <set>
+#include <vector>
+ 
+using namespace std;
+ 
+ 
+void solve(){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    int ans=n-1;
+    int first=-1,last=-1;
+    for(int i=0;i<n-1;i++){
+        if(s[i]=='A' && s[i+1]=='B'){
+            first=i;
+            break;
+        }
+    }
+    for(int i=n-1;i>=0;i--){
+        if(s[i]=='A' && s[i+1]=='B'){
+            last=i;
+            break;
+        }
+    }
+    if(first==-1 && last==-1) {
+        cout<<"0\n";
+        return;
+    }
+    int cnt1=0, cnt2=0;
+    for(int i=0;i<first;i++){
+        if(s[i]=='B') cnt1++;
+    }
+    for(int i=last+2;i<n;i++){
+        if(s[i]=='A') cnt2++;
+    }
+    ans=ans-cnt1-cnt2;
+    cout<<ans<<endl;
+}
+ 
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+}
