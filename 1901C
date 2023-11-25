@@ -1,0 +1,49 @@
+#include <cstring>
+#include <iostream>
+#include <set>
+#include <vector>
+ 
+using namespace std;
+typedef long long ll;
+ 
+void solve(){
+    ll n;
+    cin>>n;
+    ll n2=n;
+    ll max=-1, min=1000000005;
+    while(n2--){
+        ll x;
+        cin>>x;
+        if(x>max) max=x;
+        if(x<min) min=x;
+    }
+    ll cnt=0;
+    ll diff=max-min;
+    vector<int> store;
+    while(diff>0){
+        if(diff%2==1 && min%2==1){
+            store.emplace_back(1);
+            min=(min+1)/2;
+        }else{
+            store.emplace_back(0);
+            min/=2;
+        }
+        diff/=2;
+        cnt++;
+    }
+    cout<<cnt<<endl;
+    if(cnt<=n){
+        for(auto value:store){
+            cout<<value<<" ";
+        }
+       if(cnt!=0) cout<<endl;
+    }
+}
+ 
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+}
