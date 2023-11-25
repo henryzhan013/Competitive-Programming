@@ -1,0 +1,29 @@
+#include <cstring>
+#include <iostream>
+#include <set>
+#include <vector>
+ 
+using namespace std;
+typedef long long ll;
+ 
+void solve(){
+    ll n;
+    cin>>n;
+    ll prev=1;
+    ll ans=0;
+    while(n--){
+        ll x;
+        cin>>x;
+        if(x-prev>0) ans+=x-prev;
+        prev=x;
+    }
+    cout<<ans<<endl;
+}
+ 
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+}
