@@ -1,0 +1,54 @@
+#include <iostream>
+#include <vector>
+ 
+using namespace std;
+ 
+struct TreeNode{
+    int left, right,index;
+    TreeNode(int idx, int l, int r): index(idx),left(l),right(r) {}
+};
+ 
+ 
+ 
+int minChange(int cur,const vector<TreeNode*>& Nodes,const string& labels){
+    if(Nodes[cur] -> left == 0 && Nodes[cur] -> right==0){
+        return 0;
+    }
+    int changeLeft=300005, changeRight=300005;
+    if(Nodes[cur] -> left >0){
+        changeLeft=(labels[cur]=='L' ? 0:1)+minChange(Nodes[cur]->left-1, Nodes, labels);
+    }
+    if(Nodes[cur] -> right >0){
+        changeRight=(labels[cur]=='R' ? 0:1)+minChange(Nodes[cur]->right-1, Nodes, labels);
+    }
+    return min(changeLeft,changeRight);
+}
+ 
+void solve(){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    vector<TreeNode*> tn;
+    for(int i=1;i<=n;i++){
+        int li, ri;
+        cin>>li>>ri;
+        tn.push_back(new TreeNode(i,li,ri));
+    }
+    cout<<minChange(0,tn,s)<<endl;
+    for (auto node : tn) {
+        delete node;
+    }
+}
+ 
+int main(){
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
+ 
