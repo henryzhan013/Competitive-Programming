@@ -1,0 +1,40 @@
+ 
+#include <iostream>
+#include <vector>
+ 
+using namespace std;
+typedef long long ll;
+ 
+void solve(){
+    ll n,m;
+    cin>>n>>m;
+    vector<ll> mn(n+1);
+    for(int i=1;i<=n;++i){
+        mn[i]=n;
+    }
+    while(m--){
+        ll x,y;
+        cin>>x>>y;
+        if(x>y) swap(x,y);
+        mn[x]=min(mn[x],y-1);
+    }
+    for(ll i=n-1;i;--i){
+        mn[i]=min(mn[i],mn[i+1]);
+    }
+    ll ans=n;
+    for(ll i=1;i<=n;++i){
+        ans+=(mn[i]-i);
+    }
+    cout<<ans<<endl;
+}
+ 
+int main(){
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
