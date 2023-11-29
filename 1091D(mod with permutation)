@@ -1,0 +1,67 @@
+#include <iostream>
+#include <vector>
+ 
+using namespace std;
+ 
+const int MOD = 998244353;
+ 
+int add(int x, int y)
+{
+    return ((x + y) % MOD + MOD) % MOD;
+}
+ 
+int mul(int x, int y)
+{
+    return x * 1ll * y % MOD;
+}
+ 
+int binpow(int x, int y)
+{
+    int z = 1;
+    while(y)
+    {
+        if(y % 2 == 1) z = mul(z, x);
+        x = mul(x, x);
+        y /= 2;
+    }
+    return z;
+}
+ 
+int inv(int x)
+{
+    return binpow(x, MOD - 2);
+}
+ 
+int divide(int x, int y)
+{
+    return mul(x, inv(y));
+}
+ 
+int perm(int x, int times){
+    int result=1;
+    while(times>0){
+        result=mul(result, x);
+        x--;
+        times--;
+    }
+    return result;
+}
+ 
+int main(){
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int n;
+    cin>>n;
+    int ans=perm(n,n);
+    int i=1;
+    int store=1;
+    while(i<=n-2){
+        store=mul(store, n-i+1);
+        int help=mul(store, n-i-1);
+        help=mul(help, i);
+        ans=add(ans, help);
+        i++;
+    }
+    cout<<ans<<"\n";
+    return 0;
+}
