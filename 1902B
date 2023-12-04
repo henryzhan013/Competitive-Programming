@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+ 
+#define int long long
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
+#define endl "\n"
+using namespace std;
+ 
+void solve(){
+    int n,p,l,t;
+    cin>>n>>p>>l>>t;
+    int tasks=(n-1)/7+1;
+    int days=(tasks+1)/2;
+    if(p-days*l-tasks*t<=0){
+        int cnt=(p-1)/(2*t+l)+1;
+        cout<<n-cnt<<endl;
+    }else{
+        p-=(days*l+tasks*t);
+       // cout<<p<<endl;
+        days+=(p-1)/l+1;
+        cout<<n-days<<endl;
+    }
+}
+ 
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+}
