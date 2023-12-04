@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+ 
+#define int long long
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
+#define endl "\n"
+using namespace std;
+ 
+void solve(){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    if(n==1 && s[0]=='0'){
+        yes;
+        return;
+    }else if(n==1 && s[0]=='1'){
+        no;
+        return;
+    }
+    for(int i=1;i<n;i++){
+        if(!(s[i]=='1' && s[i-1]=='1')){
+            yes;
+            return;
+        }
+    }
+    no;
+}
+ 
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+}
