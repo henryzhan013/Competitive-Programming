@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+ 
+typedef long long ll;
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
+#define endl "\n"
+using namespace std;
+ 
+void solve(){
+    string s;
+    cin>>s;
+    ll cr=0,cs=0,cp=0;
+    for(ll i=0;i<s.length();++i){
+        if(s[i]=='R'){
+            cr++;
+        }else if(s[i]=='S'){
+            cs++;
+        }else{
+            cp++;
+        }
+    }
+    ll mx=max(cr,max(cs,cp));
+    char ans;
+    if(cr==mx){
+        ans='P';
+    }else if(cs==mx){
+        ans='R';
+    }else{
+        ans='S';
+    }
+    for(ll i=0;i<s.length();++i){
+        cout<<ans;
+    }
+    cout<<endl;
+}
+ 
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    ll t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+ 
+}
