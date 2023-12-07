@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <stack>
+ 
+typedef long long ll;
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
+#define endl "\n"
+using namespace std;
+ 
+ll gcd(ll a, ll b) {
+    while (b != 0) {
+        ll temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+ 
+void solve(){
+    ll n;
+    string s;
+    cin>>n>>s;
+    map<char, ll> cnt;
+    ll mx=-1;
+    for(ll i=0;i<n;++i){
+        cnt[s[i]]++;
+        if(cnt[s[i]]> mx){
+            mx=cnt[s[i]];
+        }
+    }
+    if(n%2==0){
+        cout<<max(0ll,n-(n-mx)*2)<<endl;
+    }else{
+        cout<<max(1ll,n-(n-mx)*2)<<endl;
+    }
+}
+ 
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    ll t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+ 
+}
