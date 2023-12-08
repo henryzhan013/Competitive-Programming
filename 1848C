@@ -1,0 +1,121 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <stack>
+ 
+typedef long long ll;
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
+#define endl "\n"
+using namespace std;
+ 
+ll gcd(ll a, ll b) {
+    while (b != 0) {
+        ll temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+ 
+/*
+void solve(){
+    ll n;
+    cin>>n;
+    vector<ll> a(n+1);
+    for(ll i=1;i<=n;++i) cin>>a[i];
+    vector<ll> b(n+1);
+    ll ans1, ans2;
+ 
+    ll front=n, back=1;
+    for(ll i=1;i<n;++i){
+        if(a[i+1]<a[i]){
+            front=i;
+        }
+    }
+    for(ll i=n-1;i>=1;--i){
+        if(a[i]<a[i-1]){
+            back=i;
+        }
+    }
+    if(front>=back) ans1=0;
+    if(back-front>1) ans1=-1;
+    if(back-front==1){
+        if(a[n]>a[1]) ans1=-1;
+        ans1=min(n-back+1, front+2);
+    }
+    
+    
+    for(ll i=1;i<=n;++i){
+        b[i]=a[n-i+1];
+    }
+    ll front2=n, back2=1;
+    for(ll i=1;i<n;++i){
+        if(b[i+1]>b[i]){
+            front2=i;
+        }
+    }
+    for(ll i=n-1;i>=1;--i){
+        if(b[i]>b[i-1]){
+            back2=i;
+        }
+    }
+    if(front2>=back2) ans2=1;
+    if(back2-front2>1) ans2=-1;
+    if(back2-front2==1){
+        if(b[n]<b[1]) ans2=-1;
+        ans2=min(n-back+2, front+1);
+    }
+    if(ans1==-1 && ans2==-1){
+        cout<<-1<<endl;
+    }else if(ans1==-1){
+        cout<<ans2<<endl;
+    }else if(ans2==-1){
+        cout<<ans1<<endl;
+    }else{
+        cout<<min(ans1,ans2)<<endl;
+    }
+}*/
+ 
+void solve(){
+    ll n;
+    cin>>n;
+    vector<ll> a(n+1), b(n+1);
+    for(int i=1;i<=n;++i) cin>>a[i];
+    for(int i=1;i<=n;++i) cin>>b[i];
+    ll ans=-1;
+    set<ll> cnt;
+    for(int i=1;i<=n;++i){
+        if(a[i]==0 && b[i]==0){
+            continue;
+        }
+        ll a1=a[i],a2=b[i];
+        ll x=gcd(a1,a2);
+        a1/=x; a2/=x;
+        if(a1%2==0 && a2%2==1){
+            cnt.insert(0);
+        }else if(a1%2==1 && a2%2==0){
+            cnt.insert(1);
+        }else{
+            cnt.insert(2);
+        }
+    }
+    if(cnt.size()<=1){
+        yes;
+    }else{
+        no;
+    }
+}
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    ll t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
+ 
