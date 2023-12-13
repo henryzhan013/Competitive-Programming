@@ -1,0 +1,143 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <stack>
+#include <queue>
+ 
+typedef long long ll;
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
+#define endl "\n"
+using namespace std;
+ 
+ll gcd(ll a, ll b) {
+    while (b != 0) {
+        ll temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+ 
+/*
+void solve(){
+    ll n;
+    cin>>n;
+    vector<ll> a(n+1);
+    for(ll i=1;i<=n;++i) cin>>a[i];
+    vector<ll> b(n+1);
+    ll ans1, ans2;
+ 
+    ll front=n, back=1;
+    for(ll i=1;i<n;++i){
+        if(a[i+1]<a[i]){
+            front=i;
+        }
+    }
+    for(ll i=n-1;i>=1;--i){
+        if(a[i]<a[i-1]){
+            back=i;
+        }
+    }
+    if(front>=back) ans1=0;
+    if(back-front>1) ans1=-1;
+    if(back-front==1){
+        if(a[n]>a[1]) ans1=-1;
+        ans1=min(n-back+1, front+2);
+    }
+    
+    
+    for(ll i=1;i<=n;++i){
+        b[i]=a[n-i+1];
+    }
+    ll front2=n, back2=1;
+    for(ll i=1;i<n;++i){
+        if(b[i+1]>b[i]){
+            front2=i;
+        }
+    }
+    for(ll i=n-1;i>=1;--i){
+        if(b[i]>b[i-1]){
+            back2=i;
+        }
+    }
+    if(front2>=back2) ans2=1;
+    if(back2-front2>1) ans2=-1;
+    if(back2-front2==1){
+        if(b[n]<b[1]) ans2=-1;
+        ans2=min(n-back+2, front+1);
+    }
+    if(ans1==-1 && ans2==-1){
+        cout<<-1<<endl;
+    }else if(ans1==-1){
+        cout<<ans2<<endl;
+    }else if(ans2==-1){
+        cout<<ans1<<endl;
+    }else{
+        cout<<min(ans1,ans2)<<endl;
+    }
+}*/
+ 
+ 
+ 
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    ll n;
+    cin>>n;
+    vector<ll> a(n+1);
+    map<ll,ll> cnt1;
+    map<ll,ll> cnt2;
+    map<ll,ll> cnt3;
+    map<ll,ll> cnt4;
+    map<ll,ll> cnt5;
+    for(ll i=1;i<=n;++i){
+        cin>>a[i];
+        if(a[i]<10){
+            cnt1[a[i]]++;
+        }else if(a[i]<100){
+            ll sum=a[i]/10+a[i]%10;
+            cnt2[sum]++;
+        }else if(a[i]<1000){
+            ll sum=a[i]/100+a[i]/10%10+a[i]%10;
+            cnt3[sum]++;
+        }else if(a[i]<10000){
+            ll sum=a[i]/1000+a[i]/100%10+a[i]/10%10+a[i]%10;
+            cnt4[sum]++;
+        }else{
+            ll sum=a[i]/10000+a[i]/1000%10+a[i]/100%10+a[i]/10%10+a[i]%10;
+            cnt5[sum]++;
+        }
+    }
+    ll ans=n;
+    for(auto e: cnt1){
+        ans+=e.second*(e.second-1);
+    }
+    for(auto e: cnt2){
+        ans+=e.second*(e.second-1);
+    }
+    for(auto e: cnt3){
+        ans+=e.second*(e.second-1);
+    }
+    for(auto e: cnt4){
+        ans+=e.second*(e.second-1);
+    }
+    for(auto e: cnt5){
+        ans+=e.second*(e.second-1);
+    }
+    for(ll i=1;i<=n;++i){
+        if(a[i]>100 && a[i]<1000){
+            ll b=a[i]/100,c=a[i]/10%10,d=a[i]%10;
+            ans+=(cnt1[b+c-d]+cnt1[c+d-b]);
+        }else if(a[i]<10000 && a[i]>1000){
+            ll b=a[i]/1000, c=a[i]/100%10,d=a[i]/10%10, e=a[i]%10;
+            ans+=(cnt2[b+c+d-e]+cnt2[c+d+e-b]);
+        }else if(a[i]>10000){
+            ll b=a[i]/10000, c=a[i]/1000%10,d=a[i]/100%10, e=a[i]/10%10, f=a[i]%10;
+            ans+=(cnt1[b+c+d-e-f]+cnt1[d+e+f-b-c]+cnt3[b+c+d+e-f]+cnt3[c+d+e+f-b]);
+        }
+    }
+    cout<<ans<<endl;
+}
