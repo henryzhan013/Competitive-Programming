@@ -1,0 +1,123 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <stack>
+#include <queue>
+#include <math.h>
+#include <iomanip>
+#include <deque>
+ 
+typedef long long ll;
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
+#define endl "\n"
+using namespace std;
+ 
+ll gcd(ll a, ll b) {
+    while (b != 0) {
+        ll temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+ 
+const int MOD = 998244353;
+ 
+int add(int x, int y)
+{
+    return ((x + y) % MOD + MOD) % MOD;
+}
+ 
+int mul(int x, int y)
+{
+    return x * 1ll * y % MOD;
+}
+ 
+int binpow(int x, int y)
+{
+    int z = 1;
+    while(y)
+    {
+        if(y % 2 == 1) z = mul(z, x);
+        x = mul(x, x);
+        y /= 2;
+    }
+    return z;
+}
+ 
+int inv(int x)
+{
+    return binpow(x, MOD - 2);
+}
+ 
+int divide(int x, int y)
+{
+    return mul(x, inv(y));
+}
+ 
+vector<int> findAllDivisors(int n) {
+    vector<int> divisors;
+    for (int i = 1; i * i <= n; ++i) {
+        if (n % i == 0) {
+            divisors.push_back(i);
+            if (i != n / i) { // Check to avoid adding the square root twice
+                divisors.push_back(n / i);
+            }
+        }
+    }
+    return divisors;
+}
+ 
+ 
+void solve(){
+    int n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    map<char,int> store;
+    for(int i=0;i<n;++i){
+        store[s[i]]++;
+    }
+    int odd=0;
+    for(auto e: store){
+        if(e.second % 2==1){
+            odd++;
+        }
+    }
+    if((n-k) % 2==0){
+        if(k<odd){
+            no;
+        }else{
+            if(k%2 != odd%2){
+                no;
+            }else{
+                yes;
+            }
+        }
+    }else{
+        if(k<odd-1){
+            no;
+        }else{
+            if(k%2 != abs(odd-1)%2){
+                no;
+            }else{
+                yes;
+            }
+        }
+    }
+ 
+}
+ 
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
