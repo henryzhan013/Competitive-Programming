@@ -1,0 +1,125 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <stack>
+#include <queue>
+#include <math.h>
+#include <iomanip>
+#include <deque>
+ 
+typedef long long ll;
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
+#define endl "\n"
+using namespace std;
+ 
+ll gcd(ll a, ll b) {
+    while (b != 0) {
+        ll temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+ 
+const int MOD = 998244353;
+ 
+int add(int x, int y)
+{
+    return ((x + y) % MOD + MOD) % MOD;
+}
+ 
+int mul(int x, int y)
+{
+    return x * 1ll * y % MOD;
+}
+ 
+int binpow(int x, int y)
+{
+    int z = 1;
+    while(y)
+    {
+        if(y % 2 == 1) z = mul(z, x);
+        x = mul(x, x);
+        y /= 2;
+    }
+    return z;
+}
+ 
+int inv(int x)
+{
+    return binpow(x, MOD - 2);
+}
+ 
+int divide(int x, int y)
+{
+    return mul(x, inv(y));
+}
+ 
+vector<int> findAllDivisors(int n) {
+    vector<int> divisors;
+    for (int i = 1; i * i <= n; ++i) {
+        if (n % i == 0) {
+            divisors.push_back(i);
+            if (i != n / i) { // Check to avoid adding the square root twice
+                divisors.push_back(n / i);
+            }
+        }
+    }
+    return divisors;
+}
+ 
+ 
+void solve(){
+    ll n;
+    cin>>n;
+    vector<ll> a(n);
+    for(ll i=0;i<n;++i){
+        cin>>a[i];
+    }
+    vector<int> divs=findAllDivisors((int)n);
+    ll ans=0;
+    for(ll i=0;i<divs.size();++i){
+        if(divs[i]==n){
+            ans++;
+        }else{
+            ll help2=-1;
+            for(ll j=0;j<divs[i];++j){
+                ll cur, prev;
+                ll help;
+                for(ll k=1;k<n/divs[i];++k){
+                    cur=a[j+k*divs[i]];
+                    prev=a[j+(k-1)*divs[i]];
+                    if(k==1){
+                        help=abs(cur-prev);
+                    }else{
+                        help=gcd(help, abs(cur-prev));
+                    }
+                }
+                if(help2<0){
+                    help2=help;
+                }else{
+                    help2=gcd(help2, help);
+                }
+            }
+            if(help2!=1){
+                ans++;
+            }
+        }
+    }
+    cout<<ans<<endl;
+}
+ 
+int32_t main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
